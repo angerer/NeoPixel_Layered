@@ -39,40 +39,40 @@ uint8_t NeoLayer::interpolateNextFadeValue(uint8_t startingValue, uint8_t target
 	}
 	
 #ifdef DEBUG_LAYERS
-	uint16_t step1 = (transitionSteps - currentStep);
-	uint16_t step2 = (uint16_t)startingValue * step1;
-	uint16_t step3 = (uint16_t)targetValue * currentStep;
-	uint16_t step4 = step2 + step3;
-	uint16_t step5 = step4 / transitionSteps;
-
-	Serial.print("Current index: ");
-	Serial.print(currentStep);
-  Serial.print(" step1: ");
-  Serial.print(step1);
-  Serial.print(" step2: ");
-  Serial.print(step2);
-  Serial.print(" step3: ");
-  Serial.print(step3);
-  Serial.print(" step4: ");
-  Serial.print(step4);
-  Serial.print(" step5: ");
-  Serial.print(step5);
+	// uint16_t step1 = (transitionSteps - currentStep);
+	// uint16_t step2 = (uint16_t)startingValue * step1;
+	// uint16_t step3 = (uint16_t)targetValue * currentStep;
+	// uint16_t step4 = step2 + step3;
+	// uint16_t step5 = step4 / transitionSteps;
+	//
+	// Serial.print("Current index: ");
+	// Serial.print(currentStep);
+	//   Serial.print(" step1: ");
+	//   Serial.print(step1);
+	//   Serial.print(" step2: ");
+	//   Serial.print(step2);
+	//   Serial.print(" step3: ");
+	//   Serial.print(step3);
+	//   Serial.print(" step4: ");
+	//   Serial.print(step4);
+	//   Serial.print(" step5: ");
+	//   Serial.print(step5);
 #endif
 	
 	uint16_t workingValue = (((uint16_t)startingValue * (transitionSteps - currentStep)) + ((uint16_t)targetValue * currentStep)) / transitionSteps;
 
 #ifdef DEBUG_LAYERS
-  Serial.print(" startingValue: ");
-  Serial.print(startingValue);
-  Serial.print(", targetValue:");
-  Serial.print(targetValue);
-  Serial.print(", currentStep:");
-  Serial.print(currentStep);
-  Serial.print(", transitionSteps:");
-  Serial.print(transitionSteps);
-  Serial.print(", calculatedValue:");
-  Serial.print(workingValue);
-  Serial.print("\n");
+  // Serial.print(" startingValue: ");
+  // Serial.print(startingValue);
+  // Serial.print(", targetValue:");
+  // Serial.print(targetValue);
+  // Serial.print(", currentStep:");
+  // Serial.print(currentStep);
+  // Serial.print(", transitionSteps:");
+  // Serial.print(transitionSteps);
+  // Serial.print(", calculatedValue:");
+  // Serial.print(workingValue);
+  // Serial.print("\n");
 #endif
 
   if(workingValue > 255) {

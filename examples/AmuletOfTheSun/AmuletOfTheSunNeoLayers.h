@@ -13,9 +13,9 @@
 class NeoLayer_BackgroundMagic : public NeoLayer {
 
 private: 
-	uint8_t startingRed;
-	uint8_t startingGreen;
-	uint8_t startingBlue;
+  uint8_t startingRed;
+  uint8_t startingGreen;
+  uint8_t startingBlue;
 
   uint8_t targetRed; // rgb color
   uint8_t targetGreen; // rgb color
@@ -30,9 +30,9 @@ private:
   uint16_t colorStepIndex;
   uint16_t brightnessStepIndex;
   
-  uint16_t currentRed;
-  uint16_t currentGreen;
-  uint16_t currentBlue;
+  uint8_t currentRed;
+  uint8_t currentGreen;
+  uint8_t currentBlue;
     
 public:
   NeoLayer_BackgroundMagic(uint16_t numPixels, uint8_t targetRed1, uint8_t targetGreen1, uint8_t targetBlue1, uint8_t targetRed2, uint8_t targetGreen2, uint8_t targetBlue2, uint16_t colorFadePeriod, uint8_t minBrightness, uint8_t maxBrightness, uint16_t brightnessPulsePeriod, uint16_t updateInterval);
@@ -63,7 +63,7 @@ private:
   uint8_t flarePixelTargetBlue; // Flare color
   uint16_t maxPeriod; // time between flares
   uint16_t maxDuration;
-  float flareRatio;
+  uint8_t flareRatio;
   uint16_t updateInterval;
 
   // Changes once per flare
@@ -77,7 +77,7 @@ private:
   uint8_t currentFlareOpacity = 0;
 
 public:
-  NeoLayer_MagicFlare(uint16_t numberOfPixels, uint8_t targetRed, uint8_t targetGreen, uint8_t targetBlue, uint16_t duration, uint16_t period, float flareFadeRatio, uint16_t interval);
+  NeoLayer_MagicFlare(uint16_t numberOfPixels, uint8_t targetRed, uint8_t targetGreen, uint8_t targetBlue, uint16_t duration, uint16_t period, uint8_t flareFadeRatio, uint16_t interval);
 
   void update();
   void setPixelColor(uint16_t pixelIndex, RGBaColor *pixelColor);

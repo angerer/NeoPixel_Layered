@@ -34,15 +34,15 @@ void NeoLayer_BackgroundMagic::incrementColorIndex() {
     uint8_t tempGreen = startingGreen;
     uint8_t tempBlue = startingBlue;
 
-		startingRed = targetRed;
-		startingGreen = targetGreen;
-		startingBlue = targetBlue;
-		
+    startingRed = targetRed;
+    startingGreen = targetGreen;
+    startingBlue = targetBlue;
+
     targetRed = tempRed;
-		targetGreen = tempGreen;
-		targetBlue = tempBlue;
-		
-		// Reset the index so we can count up again
+    targetGreen = tempGreen;
+    targetBlue = tempBlue;
+
+    // Reset the index so we can count up again
     colorStepIndex = 0;
   }
 }
@@ -101,7 +101,7 @@ void NeoLayer_BackgroundMagic::setPixelColor(uint16_t pixelIndex, RGBaColor *pix
   The duration is over an irregular interval between MaxDuration and 50% * MaxDuration (5 seconds?)
   This initiates on an irregular interval of between MaxInterval and 40% of MaxInterval (15 seconds?)
 */
-NeoLayer_MagicFlare::NeoLayer_MagicFlare(uint16_t numberOfPixels, uint8_t targetRed, uint8_t targetGreen, uint8_t targetBlue, uint16_t duration, uint16_t period, float flareFadeRatio, uint16_t interval)
+NeoLayer_MagicFlare::NeoLayer_MagicFlare(uint16_t numberOfPixels, uint8_t targetRed, uint8_t targetGreen, uint8_t targetBlue, uint16_t duration, uint16_t period, uint8_t flareFadeRatio, uint16_t interval)
 :NeoLayer(numberOfPixels) {
   flarePixelTargetRed = targetRed;
   flarePixelTargetGreen = targetGreen;
@@ -121,10 +121,10 @@ void NeoLayer_MagicFlare::update() {
   // Are we flaring?
   if(flaring) {
      // Determine if we are Flaring up or Fading
-    uint16_t flareUpSteps = (uint16_t) (totalStepsInCurrentFlare * flareRatio);
+    uint16_t flareUpSteps = (uint16_t) (totalStepsInCurrentFlare * (flareRatio / 256));
     
 #ifdef DEBUG
-    Serial.print("Flare Color: ");
+/*    Serial.print("Flare Color: ");
     Serial.print(flarePixelTargetRed + flarePixelTargetGreen + flarePixelTargetBlue);
     Serial.print(", flareUpSteps: ");
     Serial.print(flareUpSteps);
@@ -133,6 +133,7 @@ void NeoLayer_MagicFlare::update() {
     Serial.print(", currentFlareOpacity: ");
     Serial.print(currentFlareOpacity);
     Serial.print("\n");
+*/
 #endif
   
     if(flareIndex < flareUpSteps) {
@@ -177,6 +178,7 @@ void NeoLayer_MagicFlare::update() {
       nextFlareStart = millis() + random(maxPeriod*2/3, maxPeriod);
 
 #ifdef DEBUG
+/*
       Serial.print("Starting Flare: ");
       Serial.print(nextFlareStart);
       Serial.print(", current millis: ");
@@ -190,6 +192,7 @@ void NeoLayer_MagicFlare::update() {
       Serial.print(", next flare: ");
       Serial.print(nextFlareStart);
       Serial.print("\n");
+*/
 #endif
 		
     }
@@ -201,6 +204,7 @@ void NeoLayer_MagicFlare::setPixelColor(uint16_t pixelIndex, RGBaColor *pixelCol
     pixelColor->setColorValues(flarePixelTargetRed, flarePixelTargetGreen, flarePixelTargetBlue, currentFlareOpacity);
 
 #ifdef DEBUG
+/*	
     Serial.print("currentRed:");
     Serial.print(pixelColor->red);
     Serial.print(", currentGreen:");
@@ -210,6 +214,7 @@ void NeoLayer_MagicFlare::setPixelColor(uint16_t pixelIndex, RGBaColor *pixelCol
     Serial.print(", alpha:");
     Serial.print(pixelColor->alpha);
     Serial.print("\n");
+*/
 #endif
 
   } else {
@@ -220,10 +225,10 @@ void NeoLayer_MagicFlare::setPixelColor(uint16_t pixelIndex, RGBaColor *pixelCol
 
 AmuletOfTheSun::AmuletOfTheSun(uint16_t pixels, uint8_t pin, uint8_t type, uint16_t interval)
 :NeoPixel_Layered(pixels, pin, type, interval) {
-	backgroundLayer = new NeoLayer_BackgroundMagic(pixels, 255, 0, 0, 255, 180, 0, 8000, 16, 48, 6000, interval);
-  pinkFlare = new NeoLayer_MagicFlare(pixels, 128, 40, 80, 4000, 30000, (float) 0.15, interval);
-  greenFlare = new NeoLayer_MagicFlare(pixels, 10, 180, 38, 3000, 20000, (float) 0.2, interval);
-  blueFlare = new NeoLayer_MagicFlare(pixels, 10, 80, 200, 6000, 25000, (float) 0.1, interval);
+  backgroundLayer = new NeoLayer_BackgroundMagic(pixels, 255, 0, 0, 255, 180, 0, 8000, 16, 48, 6000, interval);
+  pinkFlare = new NeoLayer_MagicFlare(pixels, 128, 40, 80, 4000, 30000, 38, interval);
+  greenFlare = new NeoLayer_MagicFlare(pixels, 10, 180, 38, 3000, 20000, 51, interval);
+  blueFlare = new NeoLayer_MagicFlare(pixels, 10, 80, 200, 6000, 25000, 25, interval);
 }
 
 void AmuletOfTheSun::updateLayers() {
